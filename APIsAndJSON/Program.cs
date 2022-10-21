@@ -24,6 +24,37 @@ namespace APIsAndJSON
                 Console.WriteLine($"Ron: {ronQuoted}");
                 Console.WriteLine("");
             }
+
+            var weather = new HttpClient();
+            
+            Console.WriteLine("Can you give me your zip code?");
+            var zip = Console.ReadLine();
+            Console.WriteLine("And now what is your country?");
+            var country = Console.ReadLine().ToLower();
+
+            if (country == "america")
+            {
+                country = "US";
+            }
+            else if (country == "usa")
+            {
+                country = "US";
+            }
+            else if(country == "united states")
+            {
+                country = "US";
+            }
+            else
+            {
+                Console.WriteLine("Sorry! I could not identify your country, try typing ''usa''.");
+            }
+            var apiKey = "14c94a8a4a7c87f64ac9e787c33278cb";
+
+            var URL = ($"http://api.openweathermap.org/geo/1.0/zip?zip={zip},{country}&appid={apiKey}");
+            var forecast = weather.GetStringAsync(URL).Result;
+
+            var another = JObject.Parse(forecast);
+            Console.WriteLine(forecast);
         }
     }
 }
